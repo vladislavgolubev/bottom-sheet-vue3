@@ -15,13 +15,13 @@
   },
   "license": "MIT",
   "repository": {
-    "url": "git+https://github.com/kadiryazici/bottom-sheet-vue3.git",
+    "url": "git+https://github.com/vladislavgolubev/bottom-sheet-vue3.git",
     "type": "git"
   },
   "bugs": {
-    "url": "https://github.com/kadiryazici/bottom-sheet-vue3/issues"
+    "url": "https://github.com/vladislavgolubev/bottom-sheet-vue3/issues"
   },
-  "homepage": "https://github.com/kadiryazici/bottom-sheet-vue3#readme",
+  "homepage": "https://github.com/vladislavgolubev/bottom-sheet-vue3#readme",
   "keywords": [
     "vue",
     "sheet",
