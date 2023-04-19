@@ -121,8 +121,10 @@ const SheetRenderer = defineComponent({
           )
 
           anim?.addEventListener('finish', () => {
-            element.value.style.removeProperty('height')
-            element.value.style.removeProperty('max-height')
+            if (element.value) {
+              element.value.style.removeProperty('height')
+              element.value.style.removeProperty('max-height')
+            }
           })
         })
       }
