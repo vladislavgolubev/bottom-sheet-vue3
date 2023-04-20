@@ -112,8 +112,12 @@ const SheetRenderer = defineComponent({
         setTimeout(() => {
           listenBackdropClick = true
 
+          const heightFrom = element.value ? element.value.getBoundingClientRect().height : 0;
           const anim = element.value?.animate(
-            [{ height: `${preSwipeHeight}px` }],
+            [
+              { height: `${heightFrom}px` },
+              { height: `${preSwipeHeight}px` },
+            ],
             {
               duration: 200,
               easing: 'ease',
