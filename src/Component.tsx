@@ -289,6 +289,7 @@ export const Sheet = defineComponent({
 
       const anim = sheetEl.animate(
         [
+          { transform: 'translateY(0%)' },
           { transform: 'translateY(100%)' },
         ],
         {

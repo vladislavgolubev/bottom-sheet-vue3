@@ -25,7 +25,7 @@ function I() {
     }
   };
 }
-function T() {
+function Y() {
   return L(B);
 }
 function _(t, l) {
@@ -48,7 +48,7 @@ const j = x({
     emit: l,
     slots: i
   }) {
-    const m = T(), n = y(null);
+    const m = Y(), n = y(null);
     b(() => l("updateElement", null));
     let h = !0;
     const S = _(() => {
@@ -101,8 +101,8 @@ const j = x({
     }]];
     return O(() => {
       v();
-      for (const [e, a, Y] of H)
-        window.addEventListener(e, a, Y);
+      for (const [e, a, T] of H)
+        window.addEventListener(e, a, T);
     }), b(() => {
       for (const [e, a] of H)
         window.removeEventListener(e, a);
@@ -151,7 +151,7 @@ const j = x({
     slots: i,
     emit: m
   }) {
-    const n = T(), h = n.id();
+    const n = Y(), h = n.id();
     let S = n.activeSheet.value;
     A(() => t.visible, (o) => {
       o ? (S = n.activeSheet.value, n.activeSheet.value = h) : n.activeSheet.value = S;
@@ -192,6 +192,8 @@ const j = x({
         easing: "ease"
       });
       const f = v.animate([{
+        transform: "translateY(0%)"
+      }, {
         transform: "translateY(100%)"
       }], {
         duration: 300,
