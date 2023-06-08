@@ -1,5 +1,5 @@
-import { ref as y, inject as L, withModifiers as M, defineComponent as B, onUnmounted as C, onMounted as O, createVNode as c, watch as R, Teleport as A, Transition as $, mergeProps as q } from "vue";
-const N = "data-bottom-sheet-stop", w = {
+import { ref as y, inject as L, withModifiers as M, defineComponent as B, onUnmounted as C, onUpdated as O, onMounted as R, createVNode as c, watch as A, Teleport as $, Transition as q, mergeProps as N } from "vue";
+const _ = "data-bottom-sheet-stop", w = {
   type: Boolean,
   default: !1
 }, P = {
@@ -12,7 +12,7 @@ const N = "data-bottom-sheet-stop", w = {
   noClickOutside: w,
   noHeader: w
 }, Y = Symbol("BottomSheet");
-function F() {
+function I() {
   const n = y(-1);
   let l = 0;
   const i = {
@@ -28,10 +28,10 @@ function F() {
 function T() {
   return L(Y);
 }
-function _(n, l) {
+function j(n, l) {
   return M(n, l);
 }
-const j = B({
+const z = B({
   name: "SheetRenderer",
   props: {
     ...P,
@@ -49,13 +49,15 @@ const j = B({
     slots: i
   }) {
     const m = T(), t = y(null);
-    C(() => l("updateElement", null));
-    let h = !0;
-    const g = _(() => {
-      n.noClickOutside || !h || l("close");
+    C(() => l("updateElement", null)), O(() => {
+      h();
+    });
+    let v = !0;
+    const g = j(() => {
+      n.noClickOutside || !v || l("close");
     }, ["self"]), d = y(!1), r = y(0), s = y(0);
     let a = !1, u = 0;
-    function v() {
+    function h() {
       u = t.value.getBoundingClientRect().height;
     }
     function S() {
@@ -70,15 +72,15 @@ const j = B({
         d.value = !1;
         return;
       }
-      d.value = !0, r.value = o - s.value, h = !1, r.value < 0 && !n.noStretch ? (t.value.style.setProperty("height", `${u + Math.abs(r.value)}px`), t.value.style.setProperty("max-height", "none")) : (t.value.style.removeProperty("height"), t.value.style.removeProperty("max-height"));
+      d.value = !0, r.value = o - s.value, v = !1, r.value < 0 && !n.noStretch ? (t.value.style.setProperty("height", `${u + Math.abs(r.value)}px`), t.value.style.setProperty("max-height", "none")) : (t.value.style.removeProperty("height"), t.value.style.removeProperty("max-height"));
     }
     function E(e) {
-      e.target instanceof HTMLElement && e.target.closest(`[${N}]`) || ("touches" in e ? s.value = e.touches[0].clientY : s.value = e.clientY, a = !0);
+      e.target instanceof HTMLElement && e.target.closest(`[${_}]`) || ("touches" in e ? s.value = e.touches[0].clientY : s.value = e.clientY, a = !0);
     }
     function b() {
       !a || (r.value >= n.threshold ? l("close") : setTimeout(() => {
         var p;
-        h = !0;
+        v = !0;
         const e = t.value ? t.value.getBoundingClientRect().height : 0, o = (p = t.value) == null ? void 0 : p.animate([{
           height: `${e}px`
         }, {
@@ -98,11 +100,11 @@ const j = B({
     function x(e) {
       n.onlyHeaderSwipe || E(e);
     }
-    const H = [["resize", S], ["resize", v], ["mousemove", f], ["mouseup", b], ["touchend", b], ["touchcancel", b], ["touchmove", f, {
+    const H = [["resize", S], ["resize", h], ["mousemove", f], ["mouseup", b], ["touchend", b], ["touchcancel", b], ["touchmove", f, {
       passive: !1
     }]];
-    return O(() => {
-      v();
+    return R(() => {
+      h();
       for (const [e, o, p] of H)
         window.addEventListener(e, o, p);
     }), C(() => {
@@ -135,7 +137,7 @@ const j = B({
       }, [(e = i.default) == null ? void 0 : e.call(i)])])]);
     };
   }
-}), I = B({
+}), U = B({
   name: "Sheet",
   inheritAttrs: !1,
   props: {
@@ -153,10 +155,10 @@ const j = B({
     slots: i,
     emit: m
   }) {
-    const t = T(), h = t.id();
+    const t = T(), v = t.id();
     let g = t.activeSheet.value;
-    R(() => n.visible, (a) => {
-      a ? (g = t.activeSheet.value, t.activeSheet.value = h) : t.activeSheet.value = g;
+    A(() => n.visible, (a) => {
+      a ? (g = t.activeSheet.value, t.activeSheet.value = v) : t.activeSheet.value = g;
     }, {
       immediate: !0
     });
@@ -164,7 +166,7 @@ const j = B({
       m("update:visible", !1);
     }
     function r(a, u) {
-      const v = a.querySelector(".bottom-sheet"), S = window.getComputedStyle(a).backgroundColor;
+      const h = a.querySelector(".bottom-sheet"), S = window.getComputedStyle(a).backgroundColor;
       a.animate([{
         backgroundColor: "rgba(0, 0, 0, 0)"
       }, {
@@ -173,7 +175,7 @@ const j = B({
         duration: 300,
         easing: "ease"
       });
-      const f = v.animate([{
+      const f = h.animate([{
         transform: "translateY(100%)"
       }, {
         transform: "translateY(0%)"
@@ -184,7 +186,7 @@ const j = B({
       f.onfinish = u;
     }
     function s(a, u) {
-      const v = a.querySelector(".bottom-sheet"), S = window.getComputedStyle(a).backgroundColor;
+      const h = a.querySelector(".bottom-sheet"), S = window.getComputedStyle(a).backgroundColor;
       a.animate([{
         backgroundColor: S
       }, {
@@ -193,7 +195,7 @@ const j = B({
         duration: 300,
         easing: "ease"
       });
-      const f = v.animate([{
+      const f = h.animate([{
         transform: "translateY(0%)"
       }, {
         transform: "translateY(100%)"
@@ -205,16 +207,16 @@ const j = B({
     }
     return C(() => {
       t.activeSheet.value = g;
-    }), () => c(A, {
+    }), () => c($, {
       to: "body"
     }, {
-      default: () => [c($, {
+      default: () => [c(q, {
         css: !1,
         onEnter: r,
         onLeave: s
       }, {
-        default: () => [n.visible && c(j, q({
-          id: h,
+        default: () => [n.visible && c(z, N({
+          id: v,
           onClose: d
         }, l, {
           noClickOutside: n.noClickOutside,
@@ -228,6 +230,6 @@ const j = B({
   }
 });
 export {
-  I as Sheet,
-  F as createBottomSheet
+  U as Sheet,
+  I as createBottomSheet
 };

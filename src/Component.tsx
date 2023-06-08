@@ -1,6 +1,6 @@
 /* eslint-disable vue/one-component-per-file */
 
-import { type PropType, Teleport, Transition, defineComponent, onMounted, onUnmounted, ref, watch } from 'vue'
+import { type PropType, Teleport, Transition, defineComponent, onMounted, onUnmounted, onUpdated, ref, watch } from 'vue'
 import { SHEET_PROPS, STOP_ATTR } from './constants'
 import { useBottomSheet } from './plugin'
 import { withEventModifiers } from './utils'
@@ -24,6 +24,10 @@ const SheetRenderer = defineComponent({
     const element = ref<HTMLDivElement>(null!)
 
     onUnmounted(() => emit('updateElement', null))
+
+    onUpdated(() => {
+      syncHeight();
+    })
 
     let listenBackdropClick = true
 

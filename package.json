@@ -59,5 +59,8 @@
   },
   "peerDependencies": {
     "vue": "^3.2.45"
+  },
+  "dependencies": {
+    "run-s": "^0.0.0"
   }
 }

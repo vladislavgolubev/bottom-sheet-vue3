@@ -59,4 +59,4 @@ export declare const Sheet: import("vue").DefineComponent<{
     noStretch: boolean;
     noClickOutside: boolean;
     noHeader: boolean;
-}>;
+}, {}>;
