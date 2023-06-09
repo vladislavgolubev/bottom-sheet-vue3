@@ -1,6 +1,6 @@
 /* eslint-disable vue/one-component-per-file */
 
-import { type PropType, Teleport, Transition, defineComponent, onMounted, onUnmounted, onUpdated, ref, watch } from 'vue'
+import { type PropType, Teleport, Transition, defineComponent, onMounted, onUnmounted, ref, watch } from 'vue'
 import { SHEET_PROPS, STOP_ATTR } from './constants'
 import { useBottomSheet } from './plugin'
 import { withEventModifiers } from './utils'
@@ -22,12 +22,9 @@ const SheetRenderer = defineComponent({
     const context = useBottomSheet()
 
     const element = ref<HTMLDivElement>(null!)
+    const body = ref<HTMLDivElement>(null!)
 
     onUnmounted(() => emit('updateElement', null))
-
-    onUpdated(() => {
-      syncHeight();
-    })
 
     let listenBackdropClick = true
 
@@ -47,6 +44,7 @@ const SheetRenderer = defineComponent({
 
     let swipeStarted = false
     let preSwipeHeight = 0
+    let observer: MutationObserver
 
     function syncHeight() {
       preSwipeHeight = element.value.getBoundingClientRect().height
@@ -164,6 +162,12 @@ const SheetRenderer = defineComponent({
     ] as [keyof WindowEventMap, () => any, AddEventListenerOptions?][]
 
     onMounted(() => {
+      observer = new MutationObserver(syncHeight)
+      observer.observe(body.value, {
+        childList: true,
+        subtree: true,
+      })
+
       syncHeight()
 
       for (const [name, fn, options] of globalEvents)
@@ -173,6 +177,9 @@ const SheetRenderer = defineComponent({
     onUnmounted(() => {
       for (const [name, fn] of globalEvents)
         window.removeEventListener(name, fn)
+
+      if (observer)
+        observer.disconnect()
     })
 
     return () => (
@@ -209,7 +216,7 @@ const SheetRenderer = defineComponent({
                   </div>
                 )
           }
-          <div class="bottom-sheet-body">
+          <div class="bottom-sheet-body" ref={body}>
             {slots.default?.()}
           </div>
         </div>
