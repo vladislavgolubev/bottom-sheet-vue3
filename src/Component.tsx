@@ -17,6 +17,7 @@ const SheetRenderer = defineComponent({
   emits: {
     updateElement: null! as (el: HTMLDivElement | null) => void,
     close: null! as () => void,
+    swipeChange: null! as (px: number) => void,
   },
   setup(props, { emit, slots }) {
     const context = useBottomSheet()
@@ -108,9 +109,12 @@ const SheetRenderer = defineComponent({
         return
 
       if (swipedPixels.value >= props.threshold) {
+        emit('swipeChange', swipedPixels.value)
         emit('close')
       }
       else {
+        emit('swipeChange', 0)
+
         setTimeout(() => {
           listenBackdropClick = true
 
@@ -243,6 +247,7 @@ export const Sheet = defineComponent({
     const id = context.id()
 
     let oldId = context.activeSheet.value
+    let swipePixels = 0
 
     watch(() => props.visible, (visible) => {
       if (visible) {
@@ -304,7 +309,7 @@ export const Sheet = defineComponent({
 
       const anim = sheetEl.animate(
         [
-          { transform: 'translateY(0%)' },
+          { transform: 'translateY(' + swipePixels.toString() + 'px)' },
           { transform: 'translateY(100%)' },
         ],
         {
@@ -314,6 +319,10 @@ export const Sheet = defineComponent({
       )
 
       anim.onfinish = done
+    }
+
+    function handleSwipeChange(px: number) {
+      swipePixels = px
     }
 
     onUnmounted(() => {
@@ -332,6 +341,7 @@ export const Sheet = defineComponent({
               id={id}
               v-slots={slots}
               onClose={handleClose}
+              onSwipeChange={handleSwipeChange}
               {...attrs}
               noClickOutside={props.noClickOutside}
               noHeader={props.noHeader}
