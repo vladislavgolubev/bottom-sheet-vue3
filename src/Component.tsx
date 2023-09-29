@@ -48,7 +48,9 @@ const SheetRenderer = defineComponent({
     let observer: MutationObserver
 
     function syncHeight() {
-      preSwipeHeight = element.value.getBoundingClientRect().height
+      setTimeout(() => {
+        preSwipeHeight = element.value.getBoundingClientRect().height
+      },300)
     }
 
     function reset() {
