@@ -1,8 +1,8 @@
-import { ref as g, inject as O, withModifiers as R, defineComponent as Y, onUnmounted as E, onMounted as A, createVNode as c, watch as $, Teleport as q, Transition as N, mergeProps as _ } from "vue";
+import { ref as g, inject as O, withModifiers as R, defineComponent as T, onUnmounted as E, onMounted as A, createVNode as c, watch as $, Teleport as q, Transition as N, mergeProps as _ } from "vue";
 const j = "data-bottom-sheet-stop", C = {
   type: Boolean,
   default: !1
-}, T = {
+}, Y = {
   threshold: {
     type: Number,
     default: 100
@@ -31,10 +31,10 @@ function M() {
 function z(n, i) {
   return R(n, i);
 }
-const F = Y({
+const F = T({
   name: "SheetRenderer",
   props: {
-    ...T,
+    ...Y,
     id: {
       type: Number,
       required: !0
@@ -57,7 +57,9 @@ const F = Y({
     }, ["self"]), h = g(!1), l = g(0), s = g(0);
     let f = !1, o = 0, u;
     function v() {
-      o = t.value.getBoundingClientRect().height;
+      setTimeout(() => {
+        o = t.value.getBoundingClientRect().height;
+      }, 300);
     }
     function y() {
       var e, a;
@@ -141,11 +143,11 @@ const F = Y({
       }, [(e = r.default) == null ? void 0 : e.call(r)])])]);
     };
   }
-}), K = Y({
+}), K = T({
   name: "Sheet",
   inheritAttrs: !1,
   props: {
-    ...T,
+    ...Y,
     visible: {
       type: Boolean,
       required: !0
